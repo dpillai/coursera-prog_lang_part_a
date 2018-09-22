@@ -1,9 +1,20 @@
+(*
+val test_is_older1 = is_older ((2017,12,30),(2017,12,31)) = true;
+val test_is_older2 = is_older ((2017,10,31),(2017,11,30)) = true;   
+val test_is_older3 = is_older ((2017,11,29),(2017,12,30)) = true;
+val test_is_older4 = is_older ((2017,12,31),(2018,1,1)) = true;
+val test_is_older5 = is_older ((2017,12,31),(2017,12,31)) = false;
+val test_is_older6 = is_older ((2015,12,31),(2017,12,31)) = true;
+val test_is_older7 = is_older ((2012,2,28),(2011,12,31)) = false;
+*)
 (* Assignment 1 : Question 1 *)
 fun is_older (date1 : int*int*int, date2 : int*int*int)=
     if #1 date1 < #1 date2
-       orelse #2 date1 < #2 date2
-       orelse #3 date1 < #3 date2
-    then true	     
+    then true
+    else if #1 date1 = #1 date2 andalso #2 date1 < #2 date2
+    then true
+    else if #1 date1 = #1 date2 andalso #2 date1 = #2 date2 andalso #3 date1 < #3 date2
+    then true
     else false
 	     
 (* Assignment 1 : Question 2 *)
@@ -90,5 +101,18 @@ fun month_range (day1 : int, day2 : int)=
 	    in
 		mnth_list(day1)
 	    end
-		
-	
+
+(* Assignment 1 : Question 11 *)
+fun oldest (dates : (int*int*int) list)=
+    if null dates
+    then NONE
+    else
+	let fun old (curr : (int*int*int), rem_dates : (int*int*int) list)=
+		if null (tl rem_dates)
+		then curr
+		else if is_older (curr, hd  rem_dates)
+		then old (curr, tl rem_dates)
+		else old (hd rem_dates, tl rem_dates)
+	in
+	    SOME (old (hd dates, dates))
+	end
