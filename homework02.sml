@@ -1,12 +1,3 @@
-(*
-val test_is_older1 = is_older ((2017,12,30),(2017,12,31)) = true;
-val test_is_older2 = is_older ((2017,10,31),(2017,11,30)) = true;   
-val test_is_older3 = is_older ((2017,11,29),(2017,12,30)) = true;
-val test_is_older4 = is_older ((2017,12,31),(2018,1,1)) = true;
-val test_is_older5 = is_older ((2017,12,31),(2017,12,31)) = false;
-val test_is_older6 = is_older ((2015,12,31),(2017,12,31)) = true;
-val test_is_older7 = is_older ((2012,2,28),(2011,12,31)) = false;
-*)
 (* Assignment 1 : Question 1 *)
 fun is_older (date1 : int*int*int, date2 : int*int*int)=
     if #1 date1 < #1 date2
@@ -116,3 +107,59 @@ fun oldest (dates : (int*int*int) list)=
 	in
 	    SOME (old (hd dates, dates))
 	end
+
+(* Assignment 1 : Question 12 *)
+fun in_list (seed : int, tgt : int list)=
+    if null tgt
+    then false
+    else if seed = hd tgt
+    then true
+    else in_list(seed, tl tgt)
+
+fun rem_duplicates (dups : int list)=
+    if null dups
+    then []
+    else
+	if null (tl dups)
+	then dups
+	else if in_list(hd dups, tl dups)
+	then rem_duplicates (tl dups)
+	else hd dups :: rem_duplicates (tl dups)
+				       
+fun number_in_months_challenge (dates : (int*int*int) list, months : int list) =
+    number_in_months(dates, rem_duplicates(months))    
+
+fun dates_in_months_challenge (dates : (int*int*int) list, months : int list) =
+    dates_in_months(dates, rem_duplicates(months))
+
+(* Assignment 1 : Question 13 *)
+fun is_leap(year : int)=
+    (year mod 100) <> 0 andalso (((year mod 4) = 0) orelse ((year mod 400) = 0));
+	     
+fun valid_month (month : int)=
+    month > 0 andalso month <=12;
+
+fun valid_day (year: int, day : int)=
+    let val leap_mnthDays = ((1,31),(2,29),(3,31),(4,30),
+			     (5,31),(6,30),(7,31),(8,31),
+			     (9,30),(10,31),(11,30),(11,31)) and
+	val nonLeap_mnthDays = ((1,31),(2,29),(3,31),(4,30),
+			     (5,31),(6,30),(7,31),(8,31),
+			     (9,30),(10,31),(11,30),(11,31))
+    in
+	if is_leap(#1 date)
+	then 0
+	else let fun x ()=
+		     if null (y : (int*int) list)=
+			if null y
+				then 
+	
+				
+	      
+fun reasonable_date(date : (int*int*int) list)=
+    #1 date > 0 andalso valid_month (#2 date) andalso valid_day (#1 date, #3 date)
+		   
+		    
+		     
+		     
+		     

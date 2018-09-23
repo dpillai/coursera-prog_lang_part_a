@@ -53,7 +53,7 @@ val test_month_range3 = month_range (30, 34) = [1,1,2,2,2]
 val test_oldest1 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
 val test_oldest2 = oldest([(2011,3,31),(2012,2,28),(2011,4,28)]) = SOME (2011,3,31)
 val test_oldest3 = oldest([(2011,3,31),(2011,4,28),(2012,2,28)]) = SOME (2011,3,31)
-(*
+
 val test_number_in_months_challenge1 =
     number_in_months_challenge ([(2012,2,28),(2013,12,1),(2011,3,31),(2011,4,28)],[2]) = 1
 val test_number_in_months_challenge2 =
@@ -65,4 +65,3 @@ val test_number_in_months_challenge4 =
 
 val test_dates_in_months_challenge1 =
     dates_in_months_challenge ([(2012,2,28),(2013,12,1),(2011,3,31),(2011,4,28)],[2,3,2,4]) = [(2011,3,31),(2012,2,28),(2011,4,28)]
-*)
