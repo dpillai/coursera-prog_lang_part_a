@@ -139,25 +139,27 @@ fun is_leap(year : int)=
 fun valid_month (month : int)=
     month > 0 andalso month <=12;
 
-fun valid_day (year: int, day : int)=
-    let val leap_mnthDays = ((1,31),(2,29),(3,31),(4,30),
+fun get_day_cap (isLeap : bool, mnth : int, mnthDays : (int*int) list)=
+    if null mnthDays
+    then 0
+    else if mnth = 2 andalso isLeap
+    then 29
+    else if mnth = #1 (hd mnthDays)
+    then #2 (hd mnthDays)
+    else get_day_cap(isLeap, mnth, (tl mnthDays))
+				      
+fun valid_day (date: (int*int*int))=
+    let val mnthDays = [(1,31),(2,28),(3,31),(4,30),
 			     (5,31),(6,30),(7,31),(8,31),
-			     (9,30),(10,31),(11,30),(11,31)) and
-	val nonLeap_mnthDays = ((1,31),(2,29),(3,31),(4,30),
-			     (5,31),(6,30),(7,31),(8,31),
-			     (9,30),(10,31),(11,30),(11,31))
+			     (9,30),(10,31),(11,30),(12,31)]
     in
-	if is_leap(#1 date)
-	then 0
-	else let fun x ()=
-		     if null (y : (int*int) list)=
-			if null y
-				then 
-	
-				
-	      
-fun reasonable_date(date : (int*int*int) list)=
-    #1 date > 0 andalso valid_month (#2 date) andalso valid_day (#1 date, #3 date)
+	if (#2 date > 0) andalso (#3 date <= get_day_cap (is_leap(#1 date), #2 date, mnthDays))
+	then true
+	else false
+    end
+							      
+fun reasonable_date (date : (int*int*int))=
+    #1 date > 0 andalso valid_month (#2 date) andalso valid_day (date);
 		   
 		    
 		     
